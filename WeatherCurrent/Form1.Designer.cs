@@ -43,7 +43,7 @@
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(5, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(283, 32);
+            this.button1.Size = new System.Drawing.Size(508, 32);
             this.button1.TabIndex = 4;
             this.button1.Text = "START";
             this.button1.UseVisualStyleBackColor = false;
@@ -56,7 +56,7 @@
             this.richTextBox1.ForeColor = System.Drawing.Color.White;
             this.richTextBox1.Location = new System.Drawing.Point(5, 41);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(283, 80);
+            this.richTextBox1.Size = new System.Drawing.Size(508, 193);
             this.richTextBox1.TabIndex = 6;
             this.richTextBox1.Text = "";
             // 
@@ -69,13 +69,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 126);
+            this.ClientSize = new System.Drawing.Size(518, 237);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "W-Current 150523";
+            this.Text = "W-Current 180830";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.ResumeLayout(false);
