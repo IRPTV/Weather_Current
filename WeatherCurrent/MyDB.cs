@@ -1,7 +1,9 @@
-﻿namespace WeatherForecast {
-    
-    
-    public partial class MyDB {
+﻿namespace WeatherForecast
+{
+
+
+    public partial class MyDB
+    {
     }
 }
 

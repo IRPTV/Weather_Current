@@ -223,6 +223,8 @@ namespace WeatherForecast
 
             //Render Video:
             render();
+            //Convert:
+            Convert();
 
             button1.ForeColor = Color.White;
             button1.Text = "START";
@@ -230,12 +232,48 @@ namespace WeatherForecast
 
             timer1.Enabled = true;
         }
-        protected void render()
+        public void Convert()
         {
+            string DateTimeStr = string.Format("{0:0000}", DateTime.Now.Year) + "-" + string.Format("{0:00}", DateTime.Now.Month) + "-" + string.Format("{0:00}", DateTime.Now.Day) + "_" + string.Format("{0:00}", DateTime.Now.Hour) + "-" + string.Format("{0:00}", DateTime.Now.Minute) + "-" + string.Format("{0:00}", DateTime.Now.Second);
+            DirectoryInfo Dir = new DirectoryInfo(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim());
+            Dir.Create();
+            string DestFile = ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim() + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + "_" + DateTimeStr + ".mp4";
+            string SourceFile = Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".avi";
 
             Process proc = new Process();
+            proc.StartInfo.FileName = Path.GetDirectoryName(Application.ExecutablePath) + "\\ffmpeg";
+            proc.StartInfo.Arguments = "-y -i " + SourceFile + "      \"" + DestFile + "\"";
+            proc.StartInfo.RedirectStandardError = true;
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.CreateNoWindow = true;
+            proc.EnableRaisingEvents = true;
+            proc.Start();
+            StreamReader reader = proc.StandardError;
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                Logger(line);
+            }
+            try
+            {
+                string StaticDestFileName = ConfigurationSettings.AppSettings["ScheduleDestFileName"].ToString().Trim();
+                // File.Delete(StaticDestFileName);
+                File.Copy(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim() + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + "_" + DateTimeStr + ".mp4", StaticDestFileName, true);
+                Logger("COPY FINAL:" + StaticDestFileName);
+
+            }
+            catch (Exception Ex)
+            {
+                Logger(Ex.Message);
+            }
+        }
+        protected void render()
+        {
+            Logger("Start Render:");
+            Process proc = new Process();
             proc.StartInfo.FileName = "\"" + ConfigurationSettings.AppSettings["AeRenderPath"].ToString().Trim() + "\"";
-            string DateTimeStr = string.Format("{0:0000}", DateTime.Now.Year) + "-" + string.Format("{0:00}", DateTime.Now.Month) + "-" + string.Format("{0:00}", DateTime.Now.Day) + "_" + string.Format("{0:00}", DateTime.Now.Hour) + "-" + string.Format("{0:00}", DateTime.Now.Minute) + "-" + string.Format("{0:00}", DateTime.Now.Second);
+          
+           // string DateTimeStr = string.Format("{0:0000}", DateTime.Now.Year) + "-" + string.Format("{0:00}", DateTime.Now.Month) + "-" + string.Format("{0:00}", DateTime.Now.Day) + "_" + string.Format("{0:00}", DateTime.Now.Hour) + "-" + string.Format("{0:00}", DateTime.Now.Minute) + "-" + string.Format("{0:00}", DateTime.Now.Second);
 
             DirectoryInfo Dir = new DirectoryInfo(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim());
 
@@ -243,9 +281,13 @@ namespace WeatherForecast
             {
                 Dir.Create();
             }
+            try
+            {
+                File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".avi");
+            }
+            catch { }
 
-
-            proc.StartInfo.Arguments = " -project " + "\"" + ConfigurationSettings.AppSettings["AeProjectFile"].ToString().Trim() + "\"" + "   -comp   \"" + ConfigurationSettings.AppSettings["Composition"].ToString().Trim() + "\" -output " + "\"" + ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim() + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + "_" + DateTimeStr + ".mp4" + "\"";
+            proc.StartInfo.Arguments = " -project " + "\"" + ConfigurationSettings.AppSettings["AeProjectFile"].ToString().Trim() + "\"" + "   -comp   \"" + ConfigurationSettings.AppSettings["Composition"].ToString().Trim() + "\" -output " + "\"" + Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".avi" + "\"";
             proc.StartInfo.RedirectStandardError = true;
             proc.StartInfo.UseShellExecute = false;
             proc.StartInfo.CreateNoWindow = true;
@@ -274,23 +316,23 @@ namespace WeatherForecast
             }
             proc.Close();
 
-            try
-            {
-                string StaticDestFileName = ConfigurationSettings.AppSettings["ScheduleDestFileName"].ToString().Trim();
-                // File.Delete(StaticDestFileName);
-                File.Copy(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim() + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + "_" + DateTimeStr + ".mp4", StaticDestFileName, true);
-                richTextBox1.Text += "COPY FINAL:" + StaticDestFileName + " \n";
-                richTextBox1.SelectionStart = richTextBox1.Text.Length;
-                richTextBox1.ScrollToCaret();
-                Application.DoEvents();
-            }
-            catch (Exception Ex)
-            {
-                richTextBox1.Text += Ex.Message + " \n";
-                richTextBox1.SelectionStart = richTextBox1.Text.Length;
-                richTextBox1.ScrollToCaret();
-                Application.DoEvents();
-            }
+            //try
+            //{
+            //    string StaticDestFileName = ConfigurationSettings.AppSettings["ScheduleDestFileName"].ToString().Trim();
+            //    // File.Delete(StaticDestFileName);
+            //    File.Copy(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim() + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + "_" + DateTimeStr + ".mp4", StaticDestFileName, true);
+            //    richTextBox1.Text += "COPY FINAL:" + StaticDestFileName + " \n";
+            //    richTextBox1.SelectionStart = richTextBox1.Text.Length;
+            //    richTextBox1.ScrollToCaret();
+            //    Application.DoEvents();
+            //}
+            //catch (Exception Ex)
+            //{
+            //    richTextBox1.Text += Ex.Message + " \n";
+            //    richTextBox1.SelectionStart = richTextBox1.Text.Length;
+            //    richTextBox1.ScrollToCaret();
+            //    Application.DoEvents();
+            //}
         }
 
         private void Form1_Load(object sender, EventArgs e)
