@@ -15,6 +15,8 @@ namespace WeatherForecast
         public string Max2 { get; set; }
         public string Min2 { get; set; }
         public string State2 { get; set; }
+        public string Hum { get; set; }
+        public string Wind { get; set; }
 
     }
 }
