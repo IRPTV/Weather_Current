@@ -55,7 +55,6 @@
     <Compile Include="MeteoResult.cs" />
     <Compile Include="MyDB.cs">
       <DependentUpon>MyDB.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="MyDB.Designer.cs">
       <AutoGen>True</AutoGen>

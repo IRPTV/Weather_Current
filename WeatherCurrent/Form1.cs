@@ -41,13 +41,37 @@ namespace WeatherForecast
                 xmlDoc.LoadXml(result);
 
 
+                XmlNodeList elemListMin = xmlDoc.GetElementsByTagName("temp_min");
+                if (elemListMin.Count >0)
+                {
+                    ct.Min = elemListMin[0].InnerText;                   
+                    Logger("Min1:" + ct.Min);
+                }
 
+                XmlNodeList elemListMax = xmlDoc.GetElementsByTagName("temp_max");
+                if (elemListMax.Count>0)
+                {
+                    ct.Max = elemListMax[0].InnerText;
+                    Logger("Max1:" + ct.Max);
+                }
 
                 XmlNodeList elemListavg = xmlDoc.GetElementsByTagName("temp_avg");
                 if (elemListavg.Count>0)
                 {
                     ct.Avg = elemListavg[elemListavg.Count-1].InnerText;                    
-                    Logger("Current: " + ct.Avg);
+                    Logger("Avg: " + ct.Avg);
+                }
+                XmlNodeList elemListWind = xmlDoc.GetElementsByTagName("windforce");
+                if (elemListWind.Count > 0)
+                {
+                    ct.Wind = elemListWind[elemListWind.Count - 1].InnerText;
+                    Logger("Wind: " + ct.Wind);
+                }
+                XmlNodeList elemListHum = xmlDoc.GetElementsByTagName("hum");
+                if (elemListHum.Count > 0)
+                {
+                    ct.Hum = elemListHum[elemListHum.Count - 1].InnerText;
+                    Logger("Hum: " + ct.Hum);
                 }
                 XmlNodeList elemListState = xmlDoc.GetElementsByTagName("txt");
                 if (elemListState.Count > 0)
@@ -98,65 +122,65 @@ namespace WeatherForecast
             richTextBox1.Text = "";
 
 
-            string[] FilesList = Directory.GetFiles(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim());
-            foreach (string item in FilesList)
-            {
-                try
-                {
-                    if (File.GetLastAccessTime(item) < DateTime.Now.AddHours(-48))
-                    {
-                        File.Delete(item);
-                        richTextBox1.Text += (item) + " *Deleted* \n";
-                        richTextBox1.SelectionStart = richTextBox1.Text.Length;
-                        richTextBox1.ScrollToCaret();
-                        Application.DoEvents();
-                    }
-                }
-                catch (Exception Exp)
-                {
-                    richTextBox1.Text += (Exp) + " \n";
-                    richTextBox1.SelectionStart = richTextBox1.Text.Length;
-                    richTextBox1.ScrollToCaret();
-                    Application.DoEvents();
-                }
+            //string[] FilesList = Directory.GetFiles(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim());
+            //foreach (string item in FilesList)
+            //{
+            //    try
+            //    {
+            //        if (File.GetLastAccessTime(item) < DateTime.Now.AddHours(-48))
+            //        {
+            //            File.Delete(item);
+            //            richTextBox1.Text += (item) + " *Deleted* \n";
+            //            richTextBox1.SelectionStart = richTextBox1.Text.Length;
+            //            richTextBox1.ScrollToCaret();
+            //            Application.DoEvents();
+            //        }
+            //    }
+            //    catch (Exception Exp)
+            //    {
+            //        richTextBox1.Text += (Exp) + " \n";
+            //        richTextBox1.SelectionStart = richTextBox1.Text.Length;
+            //        richTextBox1.ScrollToCaret();
+            //        Application.DoEvents();
+            //    }
 
-            }
+            //}
 
 
 
             List<Cities> Cts = new List<Cities>();
             Cts.Add(new Cities { Name = "ABUJA", Code = "G2352778" });
-            Cts.Add(new Cities { Name = "BUENOS AIRES", Code = "G3435910" });
-            Cts.Add(new Cities { Name = "Melborne", Code = "G4075766" });
-            Cts.Add(new Cities { Name = "Brasilia", Code = "G3469058" });
-            Cts.Add(new Cities { Name = "beijing", Code = "G1816670" });
-            Cts.Add(new Cities { Name = "Havana", Code = "G3553478" });
-            Cts.Add(new Cities { Name = "Cairo", Code = "G360630" });
-            Cts.Add(new Cities { Name = "Paris", Code = "G2988507" });
             Cts.Add(new Cities { Name = "Berlin", Code = "G2950159" });
-            Cts.Add(new Cities { Name = "New Delhi", Code = "G1261481" });
-            Cts.Add(new Cities { Name = "Isfahan", Code = "G418863" });
-            Cts.Add(new Cities { Name = "Tehran", Code = "G112931" });
-            Cts.Add(new Cities { Name = "Baghdad", Code = "G98182" });
-            Cts.Add(new Cities { Name = "Kuwait City", Code = "G285787" });
-            Cts.Add(new Cities { Name = "Tokyo", Code = "G1850147" });
-            Cts.Add(new Cities { Name = "Beirut", Code = "G276781" });
-            Cts.Add(new Cities { Name = "Mexico City", Code = "G3530597" });
-            Cts.Add(new Cities { Name = "Casablanca", Code = "G2553604" });
-            Cts.Add(new Cities { Name = "Karachi", Code = "G1174872" });
-            Cts.Add(new Cities { Name = "JERUSALEM (AL QUDS)", Code = "G7870654" });
-            Cts.Add(new Cities { Name = "Muscat", Code = "G287286" });
-            Cts.Add(new Cities { Name = "Moscow", Code = "G524901" });
-            Cts.Add(new Cities { Name = "Mecca", Code = "G104515" });
-            Cts.Add(new Cities { Name = "Pretoria", Code = "G964137" });
-            Cts.Add(new Cities { Name = "Madrid", Code = "G3117735" });
-            Cts.Add(new Cities { Name = "Damascus", Code = "G170654" });
-            Cts.Add(new Cities { Name = "Tunis", Code = "G2464470" });
-            Cts.Add(new Cities { Name = "London", Code = "G2643743" });
-            Cts.Add(new Cities { Name = "Lisbon", Code = "G2267057" });
-            Cts.Add(new Cities { Name = "Washington", Code = "G4140963" });
             Cts.Add(new Cities { Name = "Caracas", Code = "G3646738" });
+            Cts.Add(new Cities { Name = "Isfahan", Code = "G418863" });
+            Cts.Add(new Cities { Name = "Baghdad", Code = "G98182" });
+            Cts.Add(new Cities { Name = "Brasilia", Code = "G3469058" });
+            Cts.Add(new Cities { Name = "Casablanca", Code = "G2553604" });
+            Cts.Add(new Cities { Name = "JERUSALEM(ALQUDS)", Code = "G7870654" });
+            Cts.Add(new Cities { Name = "beijing", Code = "G1816670" });
+            Cts.Add(new Cities { Name = "BUENOS AIRES", Code = "G3435910" });
+            Cts.Add(new Cities { Name = "Damascus", Code = "G170654" });
+            Cts.Add(new Cities { Name = "Karachi", Code = "G1174872" });
+            Cts.Add(new Cities { Name = "Beirut", Code = "G276781" });
+            Cts.Add(new Cities { Name = "Cairo", Code = "G360630" });
+            Cts.Add(new Cities { Name = "Havana", Code = "G3553478" });
+            Cts.Add(new Cities { Name = "Kuwait City", Code = "G285787" });
+            Cts.Add(new Cities { Name = "Lisbon", Code = "G2267057" });
+            Cts.Add(new Cities { Name = "London", Code = "G2643743" });
+            Cts.Add(new Cities { Name = "Madrid", Code = "G3117735" });
+            Cts.Add(new Cities { Name = "Mecca", Code = "G104515" });
+            Cts.Add(new Cities { Name = "Melborne", Code = "G4075766" });
+            Cts.Add(new Cities { Name = "Mexico City", Code = "G3530597" });
+            Cts.Add(new Cities { Name = "Moscow", Code = "G524901" });
+            Cts.Add(new Cities { Name = "Muscat", Code = "G287286" });
+            Cts.Add(new Cities { Name = "New Delhi", Code = "G1261481" });
+            Cts.Add(new Cities { Name = "Paris", Code = "G2988507" });
+            Cts.Add(new Cities { Name = "Pretoria", Code = "G964137" });
             Cts.Add(new Cities { Name = "Sana'a", Code = "G7789599" });
+            Cts.Add(new Cities { Name = "Tehran", Code = "G112931" });
+            Cts.Add(new Cities { Name = "Tokyo", Code = "G1850147" });
+            Cts.Add(new Cities { Name = "Tunis", Code = "G2464470" });
+            Cts.Add(new Cities { Name = "Washington", Code = "G4140963" });
 
             List<Cities> CtsFinal = new List<Cities>();
             foreach (var item in Cts)
@@ -182,7 +206,7 @@ namespace WeatherForecast
                 //Math.Round(double.Parse(Dt[i]["Forecasts1Min"].ToString())-(273.15));
 
                 //Weather Format: ["City","1st Day Min","1st Day Max","2nd Day Min","2nd Day Max"]	
-                Data.AppendLine("City" + (i + 1).ToString() + "=[ \"" + CtsFinal[i].Name.Trim().Replace("\n", "") + "\",\"" +double.Parse(CtsFinal[i].Avg.ToString()) + "\"]");
+                Data.AppendLine("City" + (i + 1).ToString() + "=[ \"" + CtsFinal[i].Name.Trim().Replace("\n", "") + "\",\"" +double.Parse(CtsFinal[i].Min.ToString()) + "\",\"" + double.Parse(CtsFinal[i].Max.ToString()) + "\",\""+CtsFinal[i].Wind+ "\",\"" + CtsFinal[i].Hum + "\"]");
 
                 //Copy Status Video:
                 string MainStatusDir = ConfigurationSettings.AppSettings["StatusSource"].ToString().Trim();
@@ -238,7 +262,7 @@ namespace WeatherForecast
             DirectoryInfo Dir = new DirectoryInfo(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim());
             Dir.Create();
             string DestFile = ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim() + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + "_" + DateTimeStr + ".mp4";
-            string SourceFile = Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".avi";
+            string SourceFile = Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".mov";
 
             Process proc = new Process();
             proc.StartInfo.FileName = Path.GetDirectoryName(Application.ExecutablePath) + "\\ffmpeg";
@@ -283,11 +307,11 @@ namespace WeatherForecast
             }
             try
             {
-                File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".avi");
+                File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".mov");
             }
             catch { }
 
-            proc.StartInfo.Arguments = " -project " + "\"" + ConfigurationSettings.AppSettings["AeProjectFile"].ToString().Trim() + "\"" + "   -comp   \"" + ConfigurationSettings.AppSettings["Composition"].ToString().Trim() + "\" -output " + "\"" + Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".avi" + "\"";
+            proc.StartInfo.Arguments = " -project " + "\"" + ConfigurationSettings.AppSettings["AeProjectFile"].ToString().Trim() + "\"" + "   -comp   \"" + ConfigurationSettings.AppSettings["Composition"].ToString().Trim() + "\" -output " + "\"" + Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".mov" + "\"";
             proc.StartInfo.RedirectStandardError = true;
             proc.StartInfo.UseShellExecute = false;
             proc.StartInfo.CreateNoWindow = true;
