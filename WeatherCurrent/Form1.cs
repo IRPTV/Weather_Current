@@ -150,24 +150,24 @@ namespace WeatherForecast
 
             List<Cities> Cts = new List<Cities>();
             Cts.Add(new Cities { Name = "ABUJA", Code = "G2352778" });
-            Cts.Add(new Cities { Name = "Jerusalem (AL QUDS)", Code = "G7870654" });
             Cts.Add(new Cities { Name = "Baghdad", Code = "G98182" });
-            Cts.Add(new Cities { Name = "Beirut", Code = "G276781" });
             Cts.Add(new Cities { Name = "beijing", Code = "G1816670" });
+            Cts.Add(new Cities { Name = "Beirut", Code = "G276781" });
             Cts.Add(new Cities { Name = "Berlin", Code = "G2950159" });
             Cts.Add(new Cities { Name = "Brasilia", Code = "G3469058" });
             Cts.Add(new Cities { Name = "BUENOS AIRES", Code = "G3435910" });
-            Cts.Add(new Cities { Name = "Caracas", Code = "G3646738" });
             Cts.Add(new Cities { Name = "Cairo", Code = "G360630" });
+            Cts.Add(new Cities { Name = "Caracas", Code = "G3646738" });
             Cts.Add(new Cities { Name = "Casablanca", Code = "G2553604" });
             Cts.Add(new Cities { Name = "Damascus", Code = "G170654" });
             Cts.Add(new Cities { Name = "Havana", Code = "G3553478" });
-            Cts.Add(new Cities { Name = "Mashhad", Code = "G124665" });
+            Cts.Add(new Cities { Name = "Jerusalem (AL QUDS)", Code = "G7870654" });
             Cts.Add(new Cities { Name = "Karachi", Code = "G1174872" });
             Cts.Add(new Cities { Name = "Kuwait City", Code = "G285787" });
             Cts.Add(new Cities { Name = "Lisbon", Code = "G2267057" });
             Cts.Add(new Cities { Name = "London", Code = "G2643743" });
             Cts.Add(new Cities { Name = "Madrid", Code = "G3117735" });
+            Cts.Add(new Cities { Name = "Mashhad", Code = "G124665" });
             Cts.Add(new Cities { Name = "Mecca", Code = "G104515" });
             Cts.Add(new Cities { Name = "Melbourne", Code = "G4075766" });
             Cts.Add(new Cities { Name = "Mexico City", Code = "G3530597" });
