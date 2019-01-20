@@ -206,7 +206,7 @@ namespace WeatherForecast
                 //Math.Round(double.Parse(Dt[i]["Forecasts1Min"].ToString())-(273.15));
 
                 //Weather Format: ["City","1st Day Min","1st Day Max","2nd Day Min","2nd Day Max"]	
-                Data.AppendLine("City" + (i + 1).ToString() + "=[ \"" + CtsFinal[i].Name.Trim().Replace("\n", "") + "\",\"" +double.Parse(CtsFinal[i].Min.ToString()) + "\",\"" + double.Parse(CtsFinal[i].Max.ToString()) + "\",\""+CtsFinal[i].Wind+ "\",\"" + CtsFinal[i].Hum + "\"]");
+                Data.AppendLine("City" + (i + 1).ToString() + "=[ \"" + CtsFinal[i].Name.Trim().Replace("\n", "") + "\",\"" +double.Parse(CtsFinal[i].Max.ToString()) + "\",\"" + double.Parse(CtsFinal[i].Min.ToString()) + "\",\""+CtsFinal[i].Wind+ "\",\"" + CtsFinal[i].Hum + "\"]");
 
                 //Copy Status Video:
                 string MainStatusDir = ConfigurationSettings.AppSettings["StatusSource"].ToString().Trim();
