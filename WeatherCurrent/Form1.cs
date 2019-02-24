@@ -26,7 +26,6 @@ namespace WeatherForecast
             try
             {
                 Logger(ct.Name);
-                //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://artgroup.feeds.meteonews.net/forecasts/id/" + ct.Code + ".xml?lang=en&cumulation=24h&end=2d");
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://artgroup.feeds.meteonews.net/forecasts/geonames/" + ct.Code.Replace("G", "") + ".xml?cumulation=3h&begin=" + DateTime.Now.AddHours(-8).ToString("yyyy-MM-dd HH:mm") + @"&end=" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "&lang=en");
                 request.Credentials = new System.Net.NetworkCredential("artgroup", "Ar+HIspGr0p");
                 WebResponse response = request.GetResponse();
