@@ -26,7 +26,8 @@ namespace WeatherForecast
             try
             {
                 Logger(ct.Name);
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://artgroup.feeds.meteonews.net/forecasts/geonames/" + ct.Code.Replace("G", "") + ".xml?cumulation=3h&begin=" + DateTime.Now.AddHours(-8).ToString("yyyy-MM-dd HH:mm") + @"&end=" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "&lang=en");
+                //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://artgroup.feeds.meteonews.net/forecasts/geonames/" + ct.Code.Replace("G", "") + ".xml?cumulation=3h&begin=" + DateTime.Now.AddHours(-8).ToString("yyyy-MM-dd HH:mm") + @"&end=" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "&lang=en");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://artgroup.feeds.meteonews.net/observations/geonames/" + ct.Code.Replace("G", "") + ".xmll?lang=en");
                 request.Credentials = new System.Net.NetworkCredential("artgroup", "Ar+HIspGr0p");
                 WebResponse response = request.GetResponse();
                 Stream stream = response.GetResponseStream();
@@ -40,42 +41,17 @@ namespace WeatherForecast
                 xmlDoc.LoadXml(result);
 
 
-                XmlNodeList elemListMin = xmlDoc.GetElementsByTagName("temp_min");
+                XmlNodeList elemListMin = xmlDoc.GetElementsByTagName("temp");
                 if (elemListMin.Count >0)
                 {
                     ct.Min = elemListMin[0].InnerText;                   
-                    Logger("Min1:" + ct.Min);
-                }
-
-                XmlNodeList elemListMax = xmlDoc.GetElementsByTagName("temp_max");
-                if (elemListMax.Count>0)
-                {
-                    ct.Max = elemListMax[0].InnerText;
-                    Logger("Max1:" + ct.Max);
-                }
-
-                XmlNodeList elemListavg = xmlDoc.GetElementsByTagName("temp_avg");
-                if (elemListavg.Count>0)
-                {
-                    ct.Avg = elemListavg[elemListavg.Count-1].InnerText;                    
-                    Logger("Avg: " + ct.Avg);
-                }
-                XmlNodeList elemListWind = xmlDoc.GetElementsByTagName("windforce");
-                if (elemListWind.Count > 0)
-                {
-                    ct.Wind = elemListWind[elemListWind.Count - 1].InnerText;
-                    Logger("Wind: " + ct.Wind);
-                }
-                XmlNodeList elemListHum = xmlDoc.GetElementsByTagName("hum");
-                if (elemListHum.Count > 0)
-                {
-                    ct.Hum = elemListHum[elemListHum.Count - 1].InnerText;
-                    Logger("Hum: " + ct.Hum);
-                }
+                    Logger("temp:" + ct.Min);
+                }          
+              
                 XmlNodeList elemListState = xmlDoc.GetElementsByTagName("txt");
                 if (elemListState.Count > 0)
                 {
-                    ct.State = elemListState[elemListavg.Count - 1].InnerText;                  
+                    ct.State = elemListState[elemListState.Count - 1].InnerText;                  
                     Logger("State:" + ct.State);
                 }
 
@@ -205,7 +181,7 @@ namespace WeatherForecast
                 //Math.Round(double.Parse(Dt[i]["Forecasts1Min"].ToString())-(273.15));
 
                 //Weather Format: ["City","1st Day Min","1st Day Max","2nd Day Min","2nd Day Max"]	
-                Data.AppendLine("City" + (i + 1).ToString() + "=[ \"" + CtsFinal[i].Name.Trim().Replace("\n", "") + "\",\"" +double.Parse(CtsFinal[i].Max.ToString()) + "\",\"" + double.Parse(CtsFinal[i].Min.ToString()) + "\",\""+CtsFinal[i].Wind+ "\",\"" + CtsFinal[i].Hum + "\"]");
+                Data.AppendLine("City" + (i + 1).ToString() + "=[ \"" + CtsFinal[i].Name.Trim().Replace("\n", "") + "\",\"" +double.Parse(CtsFinal[i].Min.ToString()) + "\"]");
 
                 //Copy Status Video:
                 string MainStatusDir = ConfigurationSettings.AppSettings["StatusSource"].ToString().Trim();
