@@ -96,134 +96,141 @@ namespace WeatherForecast
             button1.BackColor = Color.Red;
             richTextBox1.Text = "";
 
-
-            //string[] FilesList = Directory.GetFiles(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim());
-            //foreach (string item in FilesList)
-            //{
-            //    try
-            //    {
-            //        if (File.GetLastAccessTime(item) < DateTime.Now.AddHours(-48))
-            //        {
-            //            File.Delete(item);
-            //            richTextBox1.Text += (item) + " *Deleted* \n";
-            //            richTextBox1.SelectionStart = richTextBox1.Text.Length;
-            //            richTextBox1.ScrollToCaret();
-            //            Application.DoEvents();
-            //        }
-            //    }
-            //    catch (Exception Exp)
-            //    {
-            //        richTextBox1.Text += (Exp) + " \n";
-            //        richTextBox1.SelectionStart = richTextBox1.Text.Length;
-            //        richTextBox1.ScrollToCaret();
-            //        Application.DoEvents();
-            //    }
-
-            //}
-
-
-
-            List<Cities> Cts = new List<Cities>();
-            Cts.Add(new Cities { Name = "ABUJA", Code = "G2352778" });
-            Cts.Add(new Cities { Name = "Baghdad", Code = "G98182" });
-            Cts.Add(new Cities { Name = "beijing", Code = "G1816670" });
-            Cts.Add(new Cities { Name = "Beirut", Code = "G276781" });
-            Cts.Add(new Cities { Name = "Berlin", Code = "G2950159" });
-            Cts.Add(new Cities { Name = "Brasilia", Code = "G3469058" });
-            Cts.Add(new Cities { Name = "BUENOS AIRES", Code = "G3435910" });
-            Cts.Add(new Cities { Name = "Cairo", Code = "G360630" });
-            Cts.Add(new Cities { Name = "Caracas", Code = "G3646738" });
-            Cts.Add(new Cities { Name = "Casablanca", Code = "G2553604" });
-            Cts.Add(new Cities { Name = "Damascus", Code = "G170654" });
-            Cts.Add(new Cities { Name = "Havana", Code = "G3553478" });
-            Cts.Add(new Cities { Name = "Jerusalem (AL QUDS)", Code = "G7870654" });
-            Cts.Add(new Cities { Name = "Karachi", Code = "G1174872" });
-            Cts.Add(new Cities { Name = "Kuwait City", Code = "G285787" });
-            Cts.Add(new Cities { Name = "Lisbon", Code = "G2267057" });
-            Cts.Add(new Cities { Name = "London", Code = "G2643743" });
-            Cts.Add(new Cities { Name = "Madrid", Code = "G3117735" });
-            Cts.Add(new Cities { Name = "Mashhad", Code = "G124665" });
-            Cts.Add(new Cities { Name = "Mecca", Code = "G104515" });
-            Cts.Add(new Cities { Name = "Melbourne", Code = "G4075766" });
-            Cts.Add(new Cities { Name = "Mexico City", Code = "G3530597" });
-            Cts.Add(new Cities { Name = "Moscow", Code = "G524901" });
-            Cts.Add(new Cities { Name = "Muscat", Code = "G287286" });
-            Cts.Add(new Cities { Name = "New Delhi", Code = "G1261481" });
-            Cts.Add(new Cities { Name = "Paris", Code = "G2988507" });
-            Cts.Add(new Cities { Name = "Pretoria", Code = "G964137" });
-            Cts.Add(new Cities { Name = "Sana'a", Code = "G7789599" });
-            Cts.Add(new Cities { Name = "Tehran", Code = "G112931" });
-            Cts.Add(new Cities { Name = "Tokyo", Code = "G1850147" });
-            Cts.Add(new Cities { Name = "Tunis", Code = "G2464470" });
-            Cts.Add(new Cities { Name = "Washington", Code = "G4140963" });
-
-            List<Cities> CtsFinal = new List<Cities>();
-            foreach (var item in Cts)
+            try
             {
-                CtsFinal.Add(getData(item));
-            }
 
-            Logger("Start Job");
+                string[] FilesList = Directory.GetFiles(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim());
+                foreach (string item in FilesList)
+                {
+                    try
+                    {
+                        if (File.GetLastAccessTime(item) < DateTime.Now.AddHours(-48))
+                        {
+                            File.Delete(item);
+                            richTextBox1.Text += (item) + " *Deleted* \n";
+                            richTextBox1.SelectionStart = richTextBox1.Text.Length;
+                            richTextBox1.ScrollToCaret();
+                            Application.DoEvents();
+                        }
+                    }
+                    catch (Exception Exp)
+                    {
+                        richTextBox1.Text += (Exp) + " \n";
+                        richTextBox1.SelectionStart = richTextBox1.Text.Length;
+                        richTextBox1.ScrollToCaret();
+                        Application.DoEvents();
+                    }
 
-
-            //Collect Weather Data
-            //CitiesTableAdapter Ta = new CitiesTableAdapter();
-            //MyDB.CitiesDataTable Dt = Ta.SelectAllCities();
-
-            StringBuilder Data = new StringBuilder();
-            //Generate XML file:
-            for (int i = 0; i < CtsFinal.Count; i++)
-            {
-                richTextBox1.Text += CtsFinal[i].Name.ToString().Trim() + ":\n";
-                richTextBox1.SelectionStart = richTextBox1.Text.Length;
-                richTextBox1.ScrollToCaret();
-                Application.DoEvents();
-                //Math.Round(double.Parse(Dt[i]["Forecasts1Min"].ToString())-(273.15));
-
-                //Weather Format: ["City","1st Day Min","1st Day Max","2nd Day Min","2nd Day Max"]	
-                Data.AppendLine("City" + (i + 1).ToString() + "=[ \"" + CtsFinal[i].Name.Trim().Replace("\n", "") + "\",\"" +double.Parse(CtsFinal[i].Min.ToString()) + "\"]");
-
-                //Copy Status Video:
-                string MainStatusDir = ConfigurationSettings.AppSettings["StatusSource"].ToString().Trim();
-                string MainStatusDirDest = ConfigurationSettings.AppSettings["StatusDest"].ToString().Trim();
+                }
 
 
-                if (!Directory.Exists(MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\"))
-                    Directory.CreateDirectory(MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\");
+
+                List<Cities> Cts = new List<Cities>();
+                Cts.Add(new Cities { Name = "ABUJA", Code = "G2352778" });
+                Cts.Add(new Cities { Name = "Baghdad", Code = "G98182" });
+                Cts.Add(new Cities { Name = "beijing", Code = "G1816670" });
+                Cts.Add(new Cities { Name = "Beirut", Code = "G276781" });
+                Cts.Add(new Cities { Name = "Berlin", Code = "G2950159" });
+                Cts.Add(new Cities { Name = "Brasilia", Code = "G3469058" });
+                Cts.Add(new Cities { Name = "BUENOS AIRES", Code = "G3435910" });
+                Cts.Add(new Cities { Name = "Cairo", Code = "G360630" });
+                Cts.Add(new Cities { Name = "Caracas", Code = "G3646738" });
+                Cts.Add(new Cities { Name = "Casablanca", Code = "G2553604" });
+                Cts.Add(new Cities { Name = "Damascus", Code = "G170654" });
+                Cts.Add(new Cities { Name = "Havana", Code = "G3553478" });
+                Cts.Add(new Cities { Name = "Jerusalem (AL QUDS)", Code = "G7870654" });
+                Cts.Add(new Cities { Name = "Karachi", Code = "G1174872" });
+                Cts.Add(new Cities { Name = "Kuwait City", Code = "G285787" });
+                Cts.Add(new Cities { Name = "Lisbon", Code = "G2267057" });
+                Cts.Add(new Cities { Name = "London", Code = "G2643743" });
+                Cts.Add(new Cities { Name = "Madrid", Code = "G3117735" });
+                Cts.Add(new Cities { Name = "Mashhad", Code = "G124665" });
+                Cts.Add(new Cities { Name = "Mecca", Code = "G104515" });
+                Cts.Add(new Cities { Name = "Melbourne", Code = "G4075766" });
+                Cts.Add(new Cities { Name = "Mexico City", Code = "G3530597" });
+                Cts.Add(new Cities { Name = "Moscow", Code = "G524901" });
+                Cts.Add(new Cities { Name = "Muscat", Code = "G287286" });
+                Cts.Add(new Cities { Name = "New Delhi", Code = "G1261481" });
+                Cts.Add(new Cities { Name = "Paris", Code = "G2988507" });
+                Cts.Add(new Cities { Name = "Pretoria", Code = "G964137" });
+                Cts.Add(new Cities { Name = "Sana'a", Code = "G7789599" });
+                Cts.Add(new Cities { Name = "Tehran", Code = "G112931" });
+                Cts.Add(new Cities { Name = "Tokyo", Code = "G1850147" });
+                Cts.Add(new Cities { Name = "Tunis", Code = "G2464470" });
+                Cts.Add(new Cities { Name = "Washington", Code = "G4140963" });
+
+                List<Cities> CtsFinal = new List<Cities>();
+                foreach (var item in Cts)
+                {
+                    CtsFinal.Add(getData(item));
+                }
+
+                Logger("Start Job");
 
 
-                if (CtsFinal[i].State.ToLower().Contains("thunderstorm"))
-                    File.Copy(MainStatusDir + "Lightening\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);
-                else
-                 if (CtsFinal[i].State.ToLower().Contains("thundersdrizzletorm"))
-                    File.Copy(MainStatusDir + "Rain\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);
-                else
-                  if (CtsFinal[i].State.ToLower().Contains("rain"))
-                    File.Copy(MainStatusDir + "Rain\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);
-                else
-                  if (CtsFinal[i].State.ToLower().Contains("snow"))
-                    File.Copy(MainStatusDir + "Snow\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);
-                else
-                  if (CtsFinal[i].State.ToLower().Contains("atmosphere"))
+                //Collect Weather Data
+                //CitiesTableAdapter Ta = new CitiesTableAdapter();
+                //MyDB.CitiesDataTable Dt = Ta.SelectAllCities();
+
+                StringBuilder Data = new StringBuilder();
+                //Generate XML file:
+                for (int i = 0; i < CtsFinal.Count; i++)
+                {
+                    richTextBox1.Text += CtsFinal[i].Name.ToString().Trim() + ":\n";
+                    richTextBox1.SelectionStart = richTextBox1.Text.Length;
+                    richTextBox1.ScrollToCaret();
+                    Application.DoEvents();
+                    //Math.Round(double.Parse(Dt[i]["Forecasts1Min"].ToString())-(273.15));
+
+                    //Weather Format: ["City","1st Day Min","1st Day Max","2nd Day Min","2nd Day Max"]	
+                    Data.AppendLine("City" + (i + 1).ToString() + "=[ \"" + CtsFinal[i].Name.Trim().Replace("\n", "") + "\",\"" + double.Parse(CtsFinal[i].Min.ToString()) + "\"]");
+
+                    //Copy Status Video:
+                    string MainStatusDir = ConfigurationSettings.AppSettings["StatusSource"].ToString().Trim();
+                    string MainStatusDirDest = ConfigurationSettings.AppSettings["StatusDest"].ToString().Trim();
+
+
+                    if (!Directory.Exists(MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\"))
+                        Directory.CreateDirectory(MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\");
+
+
+                    if (CtsFinal[i].State.ToLower().Contains("thunderstorm"))
+                        File.Copy(MainStatusDir + "Lightening\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);
+                    else
+                     if (CtsFinal[i].State.ToLower().Contains("thundersdrizzletorm"))
+                        File.Copy(MainStatusDir + "Rain\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);
+                    else
+                      if (CtsFinal[i].State.ToLower().Contains("rain"))
+                        File.Copy(MainStatusDir + "Rain\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);
+                    else
+                      if (CtsFinal[i].State.ToLower().Contains("snow"))
+                        File.Copy(MainStatusDir + "Snow\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);
+                    else
+                      if (CtsFinal[i].State.ToLower().Contains("atmosphere"))
                         File.Copy(MainStatusDir + "Sunny\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);
-                else
-                  if (CtsFinal[i].State.ToLower().Contains("cloud"))
-                    File.Copy(MainStatusDir + "Cloudy\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);
-                else
-                  if (CtsFinal[i].State.ToLower().Contains("clear"))
-                    File.Copy(MainStatusDir + "Sunny\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);
-                else
-                    File.Copy(MainStatusDir + "Sunny\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);            
-            }
-            //Save Xml File:
-            StreamWriter s = new StreamWriter(ConfigurationSettings.AppSettings["DataPath"].ToString().Trim());
-            s.Write(Data);
-            s.Dispose();
+                    else
+                      if (CtsFinal[i].State.ToLower().Contains("cloud"))
+                        File.Copy(MainStatusDir + "Cloudy\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);
+                    else
+                      if (CtsFinal[i].State.ToLower().Contains("clear"))
+                        File.Copy(MainStatusDir + "Sunny\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);
+                    else
+                        File.Copy(MainStatusDir + "Sunny\\WP.mov", MainStatusDirDest + "City (" + (i + 1).ToString() + ")" + "\\WP.mov", true);
+                }
+                //Save Xml File:
+                StreamWriter s = new StreamWriter(ConfigurationSettings.AppSettings["DataPath"].ToString().Trim());
+                s.Write(Data);
+                s.Dispose();
 
-            //Render Video:
-            render();
-            //Convert:
-            Convert();
+                //Render Video:
+                render();
+                //Convert:
+                Convert();
+            }
+            catch (Exception Ex)
+            {
+                Logger(Ex.Message);
+            }
 
             button1.ForeColor = Color.White;
             button1.Text = "START";
@@ -233,33 +240,40 @@ namespace WeatherForecast
         }
         public void Convert()
         {
-            string DateTimeStr = string.Format("{0:0000}", DateTime.Now.Year) + "-" + string.Format("{0:00}", DateTime.Now.Month) + "-" + string.Format("{0:00}", DateTime.Now.Day) + "_" + string.Format("{0:00}", DateTime.Now.Hour) + "-" + string.Format("{0:00}", DateTime.Now.Minute) + "-" + string.Format("{0:00}", DateTime.Now.Second);
-            DirectoryInfo Dir = new DirectoryInfo(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim());
-            Dir.Create();
-            string DestFile = ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim() + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + "_" + DateTimeStr + ".mp4";
-            string SourceFile = Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".mov";
-
-            Process proc = new Process();
-            proc.StartInfo.FileName = Path.GetDirectoryName(Application.ExecutablePath) + "\\ffmpeg";
-            proc.StartInfo.Arguments = "-y -i " + SourceFile + "      \"" + DestFile + "\"";
-            proc.StartInfo.RedirectStandardError = true;
-            proc.StartInfo.UseShellExecute = false;
-            proc.StartInfo.CreateNoWindow = true;
-            proc.EnableRaisingEvents = true;
-            proc.Start();
-            StreamReader reader = proc.StandardError;
-            string line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                Logger(line);
-            }
             try
             {
-                string StaticDestFileName = ConfigurationSettings.AppSettings["ScheduleDestFileName"].ToString().Trim();
-                // File.Delete(StaticDestFileName);
-                File.Copy(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim() + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + "_" + DateTimeStr + ".mp4", StaticDestFileName, true);
-                Logger("COPY FINAL:" + StaticDestFileName);
+                string DateTimeStr = string.Format("{0:0000}", DateTime.Now.Year) + "-" + string.Format("{0:00}", DateTime.Now.Month) + "-" + string.Format("{0:00}", DateTime.Now.Day) + "_" + string.Format("{0:00}", DateTime.Now.Hour) + "-" + string.Format("{0:00}", DateTime.Now.Minute) + "-" + string.Format("{0:00}", DateTime.Now.Second);
+                DirectoryInfo Dir = new DirectoryInfo(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim());
+                Dir.Create();
+                string DestFile = ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim() + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + "_" + DateTimeStr + ".mp4";
+                string SourceFile = Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".mov";
 
+                Process proc = new Process();
+                proc.StartInfo.FileName = Path.GetDirectoryName(Application.ExecutablePath) + "\\ffmpeg";
+                proc.StartInfo.Arguments = "-y -i " + SourceFile + "      \"" + DestFile + "\"";
+                proc.StartInfo.RedirectStandardError = true;
+                proc.StartInfo.UseShellExecute = false;
+                proc.StartInfo.CreateNoWindow = true;
+                proc.EnableRaisingEvents = true;
+                proc.Start();
+                StreamReader reader = proc.StandardError;
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    Logger(line);
+                }
+                try
+                {
+                    string StaticDestFileName = ConfigurationSettings.AppSettings["ScheduleDestFileName"].ToString().Trim();
+                    // File.Delete(StaticDestFileName);
+                    File.Copy(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim() + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + "_" + DateTimeStr + ".mp4", StaticDestFileName, true);
+                    Logger("COPY FINAL:" + StaticDestFileName);
+
+                }
+                catch (Exception Ex)
+                {
+                    Logger(Ex.Message);
+                }
             }
             catch (Exception Ex)
             {
@@ -268,70 +282,77 @@ namespace WeatherForecast
         }
         protected void render()
         {
-            Logger("Start Render:");
-            Process proc = new Process();
-            proc.StartInfo.FileName = "\"" + ConfigurationSettings.AppSettings["AeRenderPath"].ToString().Trim() + "\"";
-          
-           // string DateTimeStr = string.Format("{0:0000}", DateTime.Now.Year) + "-" + string.Format("{0:00}", DateTime.Now.Month) + "-" + string.Format("{0:00}", DateTime.Now.Day) + "_" + string.Format("{0:00}", DateTime.Now.Hour) + "-" + string.Format("{0:00}", DateTime.Now.Minute) + "-" + string.Format("{0:00}", DateTime.Now.Second);
-
-            DirectoryInfo Dir = new DirectoryInfo(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim());
-
-            if (!Dir.Exists)
-            {
-                Dir.Create();
-            }
             try
             {
-                File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".mov");
-            }
-            catch { }
+                Logger("Start Render:");
+                Process proc = new Process();
+                proc.StartInfo.FileName = "\"" + ConfigurationSettings.AppSettings["AeRenderPath"].ToString().Trim() + "\"";
 
-            proc.StartInfo.Arguments = " -project " + "\"" + ConfigurationSettings.AppSettings["AeProjectFile"].ToString().Trim() + "\"" + "   -comp   \"" + ConfigurationSettings.AppSettings["Composition"].ToString().Trim() + "\" -output " + "\"" + Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".mov" + "\"";
-            proc.StartInfo.RedirectStandardError = true;
-            proc.StartInfo.UseShellExecute = false;
-            proc.StartInfo.CreateNoWindow = true;
-            proc.EnableRaisingEvents = true;
-            proc.StartInfo.RedirectStandardOutput = true;
-            proc.StartInfo.RedirectStandardError = true;
+                // string DateTimeStr = string.Format("{0:0000}", DateTime.Now.Year) + "-" + string.Format("{0:00}", DateTime.Now.Month) + "-" + string.Format("{0:00}", DateTime.Now.Day) + "_" + string.Format("{0:00}", DateTime.Now.Hour) + "-" + string.Format("{0:00}", DateTime.Now.Minute) + "-" + string.Format("{0:00}", DateTime.Now.Second);
 
-            if (!proc.Start())
-            {
-                return;
-            }
+                DirectoryInfo Dir = new DirectoryInfo(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim());
 
-            proc.PriorityClass = ProcessPriorityClass.Normal;
-            StreamReader reader = proc.StandardOutput;
-            string line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                if (richTextBox1.Lines.Length > 3)
+                if (!Dir.Exists)
                 {
-                    richTextBox1.Text = "";
+                    Dir.Create();
                 }
-                richTextBox1.Text += (line) + " \n";
-                richTextBox1.SelectionStart = richTextBox1.Text.Length;
-                richTextBox1.ScrollToCaret();
-                Application.DoEvents();
-            }
-            proc.Close();
+                try
+                {
+                    File.Delete(Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".mov");
+                }
+                catch { }
 
-            //try
-            //{
-            //    string StaticDestFileName = ConfigurationSettings.AppSettings["ScheduleDestFileName"].ToString().Trim();
-            //    // File.Delete(StaticDestFileName);
-            //    File.Copy(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim() + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + "_" + DateTimeStr + ".mp4", StaticDestFileName, true);
-            //    richTextBox1.Text += "COPY FINAL:" + StaticDestFileName + " \n";
-            //    richTextBox1.SelectionStart = richTextBox1.Text.Length;
-            //    richTextBox1.ScrollToCaret();
-            //    Application.DoEvents();
-            //}
-            //catch (Exception Ex)
-            //{
-            //    richTextBox1.Text += Ex.Message + " \n";
-            //    richTextBox1.SelectionStart = richTextBox1.Text.Length;
-            //    richTextBox1.ScrollToCaret();
-            //    Application.DoEvents();
-            //}
+                proc.StartInfo.Arguments = " -project " + "\"" + ConfigurationSettings.AppSettings["AeProjectFile"].ToString().Trim() + "\"" + "   -comp   \"" + ConfigurationSettings.AppSettings["Composition"].ToString().Trim() + "\" -output " + "\"" + Path.GetDirectoryName(Application.ExecutablePath) + "\\" + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + ".mov" + "\"";
+                proc.StartInfo.RedirectStandardError = true;
+                proc.StartInfo.UseShellExecute = false;
+                proc.StartInfo.CreateNoWindow = true;
+                proc.EnableRaisingEvents = true;
+                proc.StartInfo.RedirectStandardOutput = true;
+                proc.StartInfo.RedirectStandardError = true;
+
+                if (!proc.Start())
+                {
+                    return;
+                }
+
+                proc.PriorityClass = ProcessPriorityClass.Normal;
+                StreamReader reader = proc.StandardOutput;
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (richTextBox1.Lines.Length > 3)
+                    {
+                        richTextBox1.Text = "";
+                    }
+                    richTextBox1.Text += (line) + " \n";
+                    richTextBox1.SelectionStart = richTextBox1.Text.Length;
+                    richTextBox1.ScrollToCaret();
+                    Application.DoEvents();
+                }
+                proc.Close();
+
+                //try
+                //{
+                //    string StaticDestFileName = ConfigurationSettings.AppSettings["ScheduleDestFileName"].ToString().Trim();
+                //    // File.Delete(StaticDestFileName);
+                //    File.Copy(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim() + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + "_" + DateTimeStr + ".mp4", StaticDestFileName, true);
+                //    richTextBox1.Text += "COPY FINAL:" + StaticDestFileName + " \n";
+                //    richTextBox1.SelectionStart = richTextBox1.Text.Length;
+                //    richTextBox1.ScrollToCaret();
+                //    Application.DoEvents();
+                //}
+                //catch (Exception Ex)
+                //{
+                //    richTextBox1.Text += Ex.Message + " \n";
+                //    richTextBox1.SelectionStart = richTextBox1.Text.Length;
+                //    richTextBox1.ScrollToCaret();
+                //    Application.DoEvents();
+                //}
+            }
+            catch (Exception Ex)
+            {
+                Logger(Ex.Message);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
