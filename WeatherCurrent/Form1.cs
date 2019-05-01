@@ -27,7 +27,8 @@ namespace WeatherForecast
             {
                 Logger(ct.Name);
                 //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://artgroup.feeds.meteonews.net/forecasts/geonames/" + ct.Code.Replace("G", "") + ".xml?cumulation=3h&begin=" + DateTime.Now.AddHours(-8).ToString("yyyy-MM-dd HH:mm") + @"&end=" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "&lang=en");
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://artgroup.feeds.meteonews.net/observations/geonames/" + ct.Code.Replace("G", "") + ".xmll?lang=en");
+                //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://artgroup.feeds.meteonews.net/observations/geonames/" + ct.Code.Replace("G", "") + ".xmll?lang=en");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://artgroup.feeds.meteonews.net/observations/mexs/" + ct.Code.Replace("G", "") + ".xml?lang=en");
                 request.Credentials = new System.Net.NetworkCredential("artgroup", "Ar+HIspGr0p");
                 WebResponse response = request.GetResponse();
                 Stream stream = response.GetResponseStream();
@@ -86,6 +87,8 @@ namespace WeatherForecast
             }
             catch { }
         }
+        string DateTimeStr = string.Format("{0:0000}", DateTime.Now.Year) + "-" + string.Format("{0:00}", DateTime.Now.Month) + "-" + string.Format("{0:00}", DateTime.Now.Day) + "_" + string.Format("{0:00}", DateTime.Now.Hour) + "-" + string.Format("{0:00}", DateTime.Now.Minute) + "-" + string.Format("{0:00}", DateTime.Now.Second);
+
         private void button1_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
@@ -126,38 +129,38 @@ namespace WeatherForecast
 
 
                 List<Cities> Cts = new List<Cities>();
-                Cts.Add(new Cities { Name = "ABUJA", Code = "G2352778" });
-                Cts.Add(new Cities { Name = "Baghdad", Code = "G98182" });
-                Cts.Add(new Cities { Name = "beijing", Code = "G1816670" });
-                Cts.Add(new Cities { Name = "Beirut", Code = "G276781" });
-                Cts.Add(new Cities { Name = "Berlin", Code = "G2950159" });
-                Cts.Add(new Cities { Name = "Brasilia", Code = "G3469058" });
-                Cts.Add(new Cities { Name = "BUENOS AIRES", Code = "G3435910" });
-                Cts.Add(new Cities { Name = "Cairo", Code = "G360630" });
-                Cts.Add(new Cities { Name = "Caracas", Code = "G3646738" });
-                Cts.Add(new Cities { Name = "Casablanca", Code = "G2553604" });
-                Cts.Add(new Cities { Name = "Damascus", Code = "G170654" });
-                Cts.Add(new Cities { Name = "Havana", Code = "G3553478" });
-                Cts.Add(new Cities { Name = "Jerusalem (AL QUDS)", Code = "G7870654" });
-                Cts.Add(new Cities { Name = "Karachi", Code = "G1174872" });
-                Cts.Add(new Cities { Name = "Kuwait City", Code = "G285787" });
-                Cts.Add(new Cities { Name = "Lisbon", Code = "G2267057" });
-                Cts.Add(new Cities { Name = "London", Code = "G2643743" });
-                Cts.Add(new Cities { Name = "Madrid", Code = "G3117735" });
-                Cts.Add(new Cities { Name = "Mashhad", Code = "G124665" });
-                Cts.Add(new Cities { Name = "Mecca", Code = "G104515" });
-                Cts.Add(new Cities { Name = "Melbourne", Code = "G4075766" });
-                Cts.Add(new Cities { Name = "Mexico City", Code = "G3530597" });
-                Cts.Add(new Cities { Name = "Moscow", Code = "G524901" });
-                Cts.Add(new Cities { Name = "Muscat", Code = "G287286" });
-                Cts.Add(new Cities { Name = "New Delhi", Code = "G1261481" });
-                Cts.Add(new Cities { Name = "Paris", Code = "G2988507" });
-                Cts.Add(new Cities { Name = "Pretoria", Code = "G964137" });
-                Cts.Add(new Cities { Name = "Sana'a", Code = "G7789599" });
-                Cts.Add(new Cities { Name = "Tehran", Code = "G112931" });
-                Cts.Add(new Cities { Name = "Tokyo", Code = "G1850147" });
-                Cts.Add(new Cities { Name = "Tunis", Code = "G2464470" });
-                Cts.Add(new Cities { Name = "Washington", Code = "G4140963" });
+                Cts.Add(new Cities { Name = "ABUJA", Code = "61080000" });
+                Cts.Add(new Cities { Name = "Baghdad", Code = "40623000" });
+                Cts.Add(new Cities { Name = "beijing", Code = "54527000" });
+                Cts.Add(new Cities { Name = "Beirut", Code = "40155000" });
+                Cts.Add(new Cities { Name = "Berlin", Code = "10476000" });
+                Cts.Add(new Cities { Name = "Brasilia", Code = "83424000" });
+                Cts.Add(new Cities { Name = "BUENOS AIRES", Code = "87576000" });
+                Cts.Add(new Cities { Name = "Cairo", Code = "62324001" });
+                Cts.Add(new Cities { Name = "Caracas", Code = "78988000" });
+                Cts.Add(new Cities { Name = "Casablanca", Code = "60135000" });
+                Cts.Add(new Cities { Name = "Damascus", Code = "40080000" });
+                Cts.Add(new Cities { Name = "Havana", Code = "78229000" });
+                Cts.Add(new Cities { Name = "Jerusalem (AL QUDS)", Code = "40176000" });
+                Cts.Add(new Cities { Name = "Karachi", Code = "42734000" });
+                Cts.Add(new Cities { Name = "Kuwait City", Code = "40373000" });
+                Cts.Add(new Cities { Name = "Lisbon", Code = "08330000" });
+                Cts.Add(new Cities { Name = "London", Code = "03772000" });
+                Cts.Add(new Cities { Name = "Madrid", Code = "08221000" });
+                Cts.Add(new Cities { Name = "Mashhad", Code = "40723000" });
+                Cts.Add(new Cities { Name = "Mecca", Code = "41084000" });
+                Cts.Add(new Cities { Name = "Melbourne", Code = "94864000" });
+                Cts.Add(new Cities { Name = "Mexico City", Code = "76679000" });
+                Cts.Add(new Cities { Name = "Moscow", Code = "27614000" });
+                Cts.Add(new Cities { Name = "Muscat", Code = "41246000" });
+                Cts.Add(new Cities { Name = "New Delhi", Code = "42181000" });
+                Cts.Add(new Cities { Name = "Paris", Code = "07156000" });
+                Cts.Add(new Cities { Name = "Pretoria", Code = "68263000" });
+                Cts.Add(new Cities { Name = "Sana'a", Code = "41128000" });
+                Cts.Add(new Cities { Name = "Tehran", Code = "40754000" });
+                Cts.Add(new Cities { Name = "Tokyo", Code = "47686000" });
+                Cts.Add(new Cities { Name = "Tunis", Code = "60720000" });
+                Cts.Add(new Cities { Name = "Washington, D.C.", Code = "72405003" });
 
                 List<Cities> CtsFinal = new List<Cities>();
                 foreach (var item in Cts)
@@ -221,6 +224,7 @@ namespace WeatherForecast
                 StreamWriter s = new StreamWriter(ConfigurationSettings.AppSettings["DataPath"].ToString().Trim());
                 s.Write(Data);
                 s.Dispose();
+                DateTimeStr = string.Format("{0:0000}", DateTime.Now.Year) + "-" + string.Format("{0:00}", DateTime.Now.Month) + "-" + string.Format("{0:00}", DateTime.Now.Day) + "_" + string.Format("{0:00}", DateTime.Now.Hour) + "-" + string.Format("{0:00}", DateTime.Now.Minute) + "-" + string.Format("{0:00}", DateTime.Now.Second);
 
                 //Render Video:
                 render();
@@ -242,7 +246,6 @@ namespace WeatherForecast
         {
             try
             {
-                string DateTimeStr = string.Format("{0:0000}", DateTime.Now.Year) + "-" + string.Format("{0:00}", DateTime.Now.Month) + "-" + string.Format("{0:00}", DateTime.Now.Day) + "_" + string.Format("{0:00}", DateTime.Now.Hour) + "-" + string.Format("{0:00}", DateTime.Now.Minute) + "-" + string.Format("{0:00}", DateTime.Now.Second);
                 DirectoryInfo Dir = new DirectoryInfo(ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim());
                 Dir.Create();
                 string DestFile = ConfigurationSettings.AppSettings["OutputPath"].ToString().Trim() + ConfigurationSettings.AppSettings["OutPutFileName"].ToString().Trim() + "_" + DateTimeStr + ".mp4";
